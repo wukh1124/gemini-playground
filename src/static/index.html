@@ -48,7 +48,22 @@
             </div>
         </div>
         <button id="connect-button">Connect</button>
-        <div id="logs-container"></div>
+        <div class="topnav noselect">
+            <a id="topnav-logs">System</a>
+            <a id="topnav-chat">Chat</a>
+            <a id="topnav-all">All</a>
+        </div>
+        <div class="conversation-area">
+            <div id="logs-area">
+                <span>System</span>
+                <div id="logs-container"></div>
+            </div>
+            <div id="chat-area">
+                <span>Chat</span>
+                <div id="chat-container"></div>
+            </div>
+            
+        </div>
         <input type="text" id="message-input" placeholder="Enter message...">
         <button id="send-button">Send</button>
         <button id="mic-button">

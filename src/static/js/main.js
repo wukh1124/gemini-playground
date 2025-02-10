@@ -12,7 +12,10 @@ import { ScreenRecorder } from './video/screen-recorder.js';
  */
 
 // DOM Elements
+const logsArea = document.getElementById('logs-area');
 const logsContainer = document.getElementById('logs-container');
+const chatArea = document.getElementById('chat-area');
+const chatContainer = document.getElementById('chat-container');
 const messageInput = document.getElementById('message-input');
 const sendButton = document.getElementById('send-button');
 const micButton = document.getElementById('mic-button');
@@ -36,6 +39,10 @@ const systemInstructionInput = document.getElementById('system-instruction');
 systemInstructionInput.value = CONFIG.SYSTEM_INSTRUCTION.TEXT;
 const applyConfigButton = document.getElementById('apply-config');
 const responseTypeSelect = document.getElementById('response-type-select');
+
+const topnavLogs = document.getElementById('topnav-logs');
+const topnavChat = document.getElementById('topnav-chat');
+const topnavAll = document.getElementById('topnav-all');
 
 // Load saved values from localStorage
 const savedApiKey = localStorage.getItem('gemini_api_key');
@@ -118,8 +125,19 @@ function logMessage(message, type = 'system') {
     messageText.textContent = message;
     logEntry.appendChild(messageText);
 
-    logsContainer.appendChild(logEntry);
-    logsContainer.scrollTop = logsContainer.scrollHeight;
+    switch (type) {
+        case 'system':
+            logsContainer.appendChild(logEntry);
+            logsContainer.scrollTop = logsContainer.scrollHeight;
+            break;
+        case 'user':
+        case 'ai':
+            chatContainer.appendChild(logEntry);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+            break;
+    }
+
+    
 }
 
 /**
@@ -438,6 +456,21 @@ messageInput.disabled = true;
 sendButton.disabled = true;
 micButton.disabled = true;
 connectButton.textContent = 'Connect';
+
+topnavLogs.addEventListener('click', () => {
+    chatArea.style.display="none";
+    logsArea.style.display="block";
+});
+
+topnavChat.addEventListener('click', () => {
+    chatArea.style.display="block";
+    logsArea.style.display="none";
+});
+
+topnavAll.addEventListener('click', () => {
+    chatArea.style.display="block";
+    logsArea.style.display="block";
+});
 
 /**
  * Handles the video toggle. Starts or stops video streaming.

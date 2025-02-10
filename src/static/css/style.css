@@ -35,7 +35,14 @@ body {
     max-width: 1000px;
 }
 
+
+#logs-area,
+#chat-area {
+    width: 100%;
+}
+
 #logs-container {
+    
     border: 1px solid #ccc;
     height: 300px;
     overflow-y: auto;
@@ -48,7 +55,66 @@ body {
     transition: box-shadow 0.3s ease;
     scroll-behavior: smooth;
 }
+#chat-container {
+    border: 1px solid #ccc;
+    height: 300px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+    scroll-behavior: smooth;
+}
+.conversation-area {
+    display: flex;
+    gap: 5px;
+}
+/* Add a black background color to the top navigation */
+.topnav {
+  width: fit-content;
+  background-color: #666;
+  overflow: hidden;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
 
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+  background-color: #04AA6D;
+  color: white;
+}
+
+#chat-container:hover,
 #logs-container:hover {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
@@ -85,6 +151,7 @@ body {
     border: 1px solid #ccc;
     border-radius: 4px;
     margin-right: 10px;
+    margin-bottom: 10px;
 }
 
 #send-button, #mic-button {
@@ -562,7 +629,7 @@ body {
     }
 
     #logs-container {
-        max-height: calc(30vh - 50px);
+        /*max-height: calc(30vh - 50px);*/
     }
 
     .input-controls {
