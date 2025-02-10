@@ -101,43 +101,44 @@ function logMessage(message, type = 'system') {
     const logEntry = document.createElement('div');
     logEntry.classList.add('log-entry', type);
 
-    const timestamp = document.createElement('span');
-    timestamp.classList.add('timestamp');
-    timestamp.textContent = new Date().toLocaleTimeString();
-    logEntry.appendChild(timestamp);
+    const lastClass = document.querySelector("#chat-container > div:last-child");
+    // no need timestamp and emoji if type is ai and the last message also is from ai
+    if (type != 'ai' || !lastClass.classList.contains('ai')) {
+        const timestamp = document.createElement('span');
+        timestamp.classList.add('timestamp');
+        timestamp.textContent = new Date().toLocaleTimeString();
+        logEntry.appendChild(timestamp);
 
-    const emoji = document.createElement('span');
-    emoji.classList.add('emoji');
-    switch (type) {
-        case 'system':
-            emoji.textContent = '⚙️';
-            break;
-        case 'user':
-            emoji.textContent = '🫵';
-            break;
-        case 'ai':
-            emoji.textContent = '🤖';
-            break;
+        const emoji = document.createElement('span');
+        emoji.classList.add('emoji');
+        switch (type) {
+            case 'system':
+                emoji.textContent = '⚙️';
+                break;
+            case 'user':
+                emoji.textContent = '🫵';
+                break;
+            case 'ai':
+                emoji.textContent = '🤖';
+                break;
+        }
+        logEntry.appendChild(emoji);
     }
-    logEntry.appendChild(emoji);
 
     const messageText = document.createElement('span');
     messageText.textContent = message;
     logEntry.appendChild(messageText);
 
-    switch (type) {
-        case 'system':
-            logsContainer.appendChild(logEntry);
-            logsContainer.scrollTop = logsContainer.scrollHeight;
-            break;
-        case 'user':
-        case 'ai':
-            chatContainer.appendChild(logEntry);
-            chatContainer.scrollTop = chatContainer.scrollHeight;
-            break;
+    // show system log in logsContainer
+    if (type == 'system') {
+        logsContainer.appendChild(logEntry);
+        logsContainer.scrollTop = logsContainer.scrollHeight;
     }
-
-    
+    // show ai and user chat in chatContainer
+    else {
+        chatContainer.appendChild(logEntry);
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
 }
 
 /**
