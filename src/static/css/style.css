@@ -56,6 +56,7 @@ body {
     scroll-behavior: smooth;
 }
 #chat-container {
+    white-space:pre-wrap
     border: 1px solid #ccc;
     height: 300px;
     overflow-y: auto;
