@@ -102,6 +102,7 @@ function logMessage(message, type = 'system') {
     logEntry.classList.add('log-entry', type);
 
     const messageText = document.createElement('span');
+    messageText.textContent = message;
 
     // get the last class of chat-container. if current type is ai and last class is ai, just continue the message to avoid creating new line
     const lastClass = document.querySelector("#chat-container > div:last-child");
@@ -131,7 +132,7 @@ function logMessage(message, type = 'system') {
     }
     logEntry.appendChild(emoji);
 
-    messageText.textContent = message;
+    
     logEntry.appendChild(messageText);
 
     // show system log in logsContainer
