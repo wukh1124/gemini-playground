@@ -101,31 +101,36 @@ function logMessage(message, type = 'system') {
     const logEntry = document.createElement('div');
     logEntry.classList.add('log-entry', type);
 
-    const lastClass = document.querySelector("#chat-container > div:last-child");
-    // no need timestamp and emoji if type is ai and the last message also is from ai
-    if (type != 'ai' || !lastClass.classList.contains('ai')) {
-        const timestamp = document.createElement('span');
-        timestamp.classList.add('timestamp');
-        timestamp.textContent = new Date().toLocaleTimeString();
-        logEntry.appendChild(timestamp);
+    const messageText = document.createElement('span');
 
-        const emoji = document.createElement('span');
-        emoji.classList.add('emoji');
-        switch (type) {
-            case 'system':
-                emoji.textContent = '⚙️';
-                break;
-            case 'user':
-                emoji.textContent = '🫵';
-                break;
-            case 'ai':
-                emoji.textContent = '🤖';
-                break;
-        }
-        logEntry.appendChild(emoji);
+    // get the last class of chat-container. if current type is ai and last class is ai, just continue the message to avoid creating new line
+    const lastClass = document.querySelector("#chat-container > div:last-child");
+    if (type == 'ai' && lastClass.classList.contains('ai')) {
+        lastClass.appendChild(messageText);
+        return;
     }
 
-    const messageText = document.createElement('span');
+    // no need timestamp and emoji if type is ai and the last message also is from ai
+    const timestamp = document.createElement('span');
+    timestamp.classList.add('timestamp');
+    timestamp.textContent = new Date().toLocaleTimeString();
+    logEntry.appendChild(timestamp);
+
+    const emoji = document.createElement('span');
+    emoji.classList.add('emoji');
+    switch (type) {
+        case 'system':
+            emoji.textContent = '⚙️';
+            break;
+        case 'user':
+            emoji.textContent = '🫵';
+            break;
+        case 'ai':
+            emoji.textContent = '🤖';
+            break;
+    }
+    logEntry.appendChild(emoji);
+
     messageText.textContent = message;
     logEntry.appendChild(messageText);
 
